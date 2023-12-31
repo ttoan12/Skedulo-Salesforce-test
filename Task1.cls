@@ -10,11 +10,11 @@ trigger UpdateTotalContacts on Contact (after update, after delete) {
             // Skip if the contact is inactive
             if (contact.Active__c != true) continue;
 
-            if (accountTotalContacts.containsKey(contact.Account.Id)) {
-                accountTotalContacts.put(contact.Account.Id, accountTotalContacts.get(contact.Account.Id) - 1);
+            if (accountTotalContacts.containsKey(contact.AccountId)) {
+                accountTotalContacts.put(contact.AccountId, accountTotalContacts.get(contact.AccountId) - 1);
             }
             else {
-                accountTotalContacts.put(contact.Account.Id, -1);
+                accountTotalContacts.put(contact.AccountId, -1);
             }
         }
     }
@@ -29,11 +29,11 @@ trigger UpdateTotalContacts on Contact (after update, after delete) {
             // Increase if Active field is set to true and decrease if it set to false
             Integer countChange = contact.Active__c == true ? 1 : -1;
 
-            if (accountTotalContacts.containsKey(contact.Account.Id)) {
-                accountTotalContacts.put(contact.Account.Id, accountTotalContacts.get(contact.Account.Id) + countChange);
+            if (accountTotalContacts.containsKey(contact.AccountId)) {
+                accountTotalContacts.put(contact.AccountId, accountTotalContacts.get(contact.AccountId) + countChange);
             }
             else {
-                accountTotalContacts.put(contact.Account.Id, countChange);
+                accountTotalContacts.put(contact.AccountId, countChange);
             }
         }
     }
@@ -43,10 +43,10 @@ trigger UpdateTotalContacts on Contact (after update, after delete) {
     
     List<Account> accountsToUpdate = new List<Account>();
 
-    for (Account acc : [SELECT Id, TotalContacts__c FROM Account WHERE Id IN :accountTotalContacts.keySet()]) {
-        acc.TotalContacts__c += accountTotalContacts.get(acc.Id);
+    for (Account acc : [SELECT Id, Total_Contact__c FROM Account WHERE Id IN :accountTotalContacts.keySet()]) {
+        acc.Total_Contact__c += accountTotalContacts.get(acc.Id);
         accountsToUpdate.add(acc);
     }
-
+    
     update accountsToUpdate;
 }

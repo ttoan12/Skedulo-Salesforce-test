@@ -12,7 +12,7 @@
                     <apex:column headerValue="Record Name" value="{!result.RecordName}" />
                     <apex:column headerValue="Record Type" value="{!result.RecordType}" />
                     <apex:column headerValue="Click To Open">
-                        <apex:outputLink value="{!result.RecordLink}">View</apex:outputLink>
+                        <apex:outputLink value="{!result.RecordLink}" target="_blank">View</apex:outputLink>
                     </apex:column>
                 </apex:pageBlockTable>
             </apex:pageBlock>

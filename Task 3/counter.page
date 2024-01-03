@@ -1,0 +1,34 @@
+<apex:page controller="CounterController">
+    <script type="text/javascript">
+        function increaseCounterFn(id, type) {
+            console.log(id, type);
+            CounterController.increaseCounter(id, type, (result, event) => {
+                if (event.status) {
+                    document.getElementById(`counterVal${id}`).innerText = result;
+                }
+            });
+        };
+    </script>
+
+    <apex:pageBlock title="Search">
+        <apex:form >
+            <apex:inputText value="{!searchString}" />
+            <apex:commandButton value="Search" action="{!performSearch}" rerender="resultsPanel" />
+        </apex:form>
+    </apex:pageBlock>
+
+    <apex:outputPanel id="resultsPanel">
+        <apex:pageBlock title="Search Results" rendered="{!showResults}">
+            <apex:pageBlockTable value="{!searchResults}" var="result">
+                <apex:column headerValue="Record Name" value="{!result.RecordName}" />
+                <apex:column headerValue="Record Type" value="{!result.RecordType}" />
+                <apex:column headerValue="Counter">
+                    <span id="counterVal{!result.RecordId}">{!result.Counter}</span>
+                </apex:column>
+                <apex:column headerValue="Click to update counter">
+                    <apex:outputLink onclick="increaseCounterFn('{!result.RecordId}', '{!result.RecordType}')" value="#">Increment Counter</apex:outputLink>
+                </apex:column>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:outputPanel>
+</apex:page>

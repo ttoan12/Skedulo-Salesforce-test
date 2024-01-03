@@ -11,7 +11,7 @@
     </script>
 
     <apex:pageBlock title="Search">
-        <apex:form >
+        <apex:form>
             <apex:inputText value="{!searchString}" />
             <apex:commandButton value="Search" action="{!performSearch}" rerender="resultsPanel" />
         </apex:form>

@@ -18,7 +18,7 @@ public class SearchController {
       SearchResult result = new SearchResult();
       result.RecordName = acc.Name;
       result.RecordType = 'Account';
-      result.RecordLink = '/lightning/r/Account/' + acc.Id + '/view';
+      result.RecordLink = URL.getOrgDomainURL().toExternalForm() + '/' + acc.Id;
       searchResults.add(result);
     }
 
@@ -27,7 +27,7 @@ public class SearchController {
       SearchResult result = new SearchResult();
       result.RecordName = con.Name;
       result.RecordType = 'Contact';
-      result.RecordLink = '/lightning/r/Contact/' + con.Id + '/view';
+      result.RecordLink = URL.getOrgDomainURL().toExternalForm() + '/' + con.Id;
       searchResults.add(result);
     }
   }
